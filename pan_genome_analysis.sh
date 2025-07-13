@@ -3,16 +3,16 @@ set -e
 
 # --- Configuration ---
 # Set the base directory for the project
-BASE_DIR="/data2/250401_Microcystis"
+BASE_DIR="/base_path/"
 INPUT_DIR="$BASE_DIR/0_rawdata"
 OUTPUT_DIR="$BASE_DIR"
 THREADS=64
 
 # --- Initialize Log File ---
-exec > >(tee -i pan_genome_analysis_log.txt)
+exec > >(tee -i analysis_log.txt)
 exec 2>&1
 
-echo "Starting Pan-Genome and Phylogenetic Analysis Pipeline"
+source /root/miniconda3/etc/profile.d/conda.sh 
 
 # --- 1. Genome Annotation with Prokka ---
 echo "[Step 1/5] Running Prokka for genome annotation..."
@@ -20,7 +20,6 @@ PROKKA_DIR="$OUTPUT_DIR/1_prokka"
 GFF_DIR="$PROKKA_DIR/gff"
 mkdir -p "$PROKKA_DIR" "$GFF_DIR"
 
-source /root/miniconda3/etc/profile.d/conda.sh # Adjust path to your conda installation
 conda activate prokka
 
 for GENOME in "$INPUT_DIR"/*.fna; do
@@ -37,7 +36,7 @@ echo "[Step 1/5] Prokka annotation complete."
 echo "[Step 2/5] Running PEPPAN for pan-genome analysis..."
 PEPPAN_DIR="$OUTPUT_DIR/2_peppan"
 mkdir -p "$PEPPAN_DIR"
-cd "$PEPPAN_DIR" # PEPPAN runs in the current directory
+cd "$PEPPAN_DIR" 
 
 conda activate peppan
 # Run PEPPAN on all GFF files
@@ -52,7 +51,7 @@ echo "[Step 2/5] PEPPAN analysis complete."
 
 # --- 3. Core Gene Alignment with MAFFT ---
 echo "[Step 3/5] Aligning core genes with MAFFT..."
-COREGENE_DIR="$PEPPAN_DIR/2nd_parser/core_gene_fastas" # Default PEPPAN output folder
+COREGENE_DIR="$PEPPAN_DIR/2nd_parser/core_gene_fastas" 
 ALIGN_DIR="$OUTPUT_DIR/4_aligned_genes"
 mkdir -p "$ALIGN_DIR"
 NUM_STRAINS=$(find "$INPUT_DIR" -name "*.fna" | wc -l)
