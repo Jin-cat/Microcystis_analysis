@@ -20,7 +20,7 @@ for fasta_file in fasta_dir.glob("*.fasta"):
         updated_records.append(record)
     SeqIO.write(updated_records, fasta_file, "fasta")
 
-print("✅ FASTA headers cleaned successfully.")
+print("FASTA headers cleaned successfully.")
 EOF
 
 # === [MAFFT alignment] ===
