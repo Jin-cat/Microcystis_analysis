@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# === [Initialize Conda environment] ===
+source ~/miniconda3/etc/profile.d/conda.sh
+
 # === [Set up log output] ===
 exec > >(tee -i phylogenetic_analysis_log.txt)
 exec 2>&1
