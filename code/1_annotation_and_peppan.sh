@@ -12,7 +12,7 @@ exec 2>&1
 INPUT_DIR="/data/Microcystis/0_rawdata"       # Raw genome input (.fna)
 OUTPUT_DIR="/data/Microcystis"                # Base output directory
 
-# === [1. Genome annotation using Prokka] ===
+# === [Genome annotation using Prokka] ===
 echo "Running Prokka for genome annotation"
 PROKKA_DIR="$OUTPUT_DIR/1_prokka"
 mkdir -p $PROKKA_DIR
@@ -28,7 +28,7 @@ done
 mkdir -p $PROKKA_DIR/gff
 cp $PROKKA_DIR/*/*.gff $PROKKA_DIR/gff/
 
-# === [2. Run PEPPAN: Based on GFF3 and FASTA] ===
+# === [Run PEPPAN: Based on GFF3 and FASTA] ===
 echo "Running PEPPAN for genome analysis"
 PEPPAN_DIR="$OUTPUT_DIR/2_peppan"
 mkdir -p $PEPPAN_DIR
@@ -37,4 +37,4 @@ conda activate peppan
 PEPPAN -t 64 "$PROKKA_DIR/gff/"*.gff
 conda deactivate
 
-echo "[✓] Step 1 completed: Prokka annotation + PEPPAN pan-genome analysis"
+echo "Prokka annotation + PEPPAN pan-genome analysis completed successfully"
