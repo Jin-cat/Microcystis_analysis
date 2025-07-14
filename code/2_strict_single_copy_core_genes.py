@@ -15,7 +15,7 @@ output_dir.mkdir(parents=True, exist_ok=True)
 metadata_path = output_dir / "peppan_strict_single_copy_core_genes_metadata.tsv"
 # ==============================
 
-### Step 1: Generate metadata for strict single-copy core genes
+### Generate metadata for strict single-copy core genes
 df = pd.read_csv(gene_content_path)
 genomes = df.columns[1:]
 
@@ -98,9 +98,9 @@ for _, row in long_df.iterrows():
 meta_df = pd.DataFrame(records)
 meta_df = meta_df.sort_values(by=["peppan_id", "representative_genome", "representative_gene"])
 meta_df.to_csv(metadata_path, sep="\t", index=False)
-print(f"[✔] Metadata saved to: {metadata_path}")
+print(f"Metadata saved to: {metadata_path}")
 
-### Step 2: Extract representative core gene FASTA sequences
+### Extract representative core gene FASTA sequences
 # Load allele sequences from FASTA
 allele_dict = {}
 for record in SeqIO.parse(allele_fasta_path, "fasta"):
@@ -139,5 +139,5 @@ for _, row in meta_df.iterrows():
 for gene_id, seq_list in gene_to_records.items():
     SeqIO.write(seq_list, output_dir / f"{gene_id}.fasta", "fasta")
 
-print("✅ All representative core gene FASTA files generated.")
+print("All representative core gene FASTA files generated.")
 print(f"Total representative genes: {len(gene_to_records)}")
