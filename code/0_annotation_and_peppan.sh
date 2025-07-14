@@ -9,8 +9,8 @@ exec > >(tee -i PEPPAN_core_gene_analysis_log.txt)
 exec 2>&1
 
 # === [User-defined directory paths] ===
-INPUT_DIR="/data2/250401_Microcystis/0_rawdata"       # Raw genome input (.fna)
-OUTPUT_DIR="/data2/250401_Microcystis"                # Base output directory
+INPUT_DIR="/data/Microcystis/0_rawdata"       # Raw genome input (.fna)
+OUTPUT_DIR="/data/Microcystis"                # Base output directory
 
 # === [1. Genome annotation using Prokka] ===
 echo "Running Prokka for genome annotation"
