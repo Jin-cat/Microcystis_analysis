@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# === [Initialize Conda environment] ===
+source ~/miniconda3/etc/profile.d/conda.sh
+
 # === [Clean FASTA headers using Biopython] ===
 echo "Cleaning FASTA headers to retain only genome IDs..."
 
