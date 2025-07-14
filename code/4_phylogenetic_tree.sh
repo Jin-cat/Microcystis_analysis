@@ -58,3 +58,23 @@ raxml-ng --all \
     --bs-tree 1000
 conda deactivate
 echo "RAxML-NG completed"
+
+# ------------------------------------------------
+# ANI analysis using pyani (ANIb method)
+# ------------------------------------------------
+echo "Running pyani (ANIb) analysis with BLASTN..."
+conda activate pyani
+INPUT_DIR="/data/Microcystis/0_rawdata"
+OUTPUT_DIR="/data/Microcystis/8_pyani"
+mkdir -p "$OUTPUT_DIR"
+average_nucleotide_identity.py \
+    -i "$INPUT_DIR" \
+    -o "$OUTPUT_DIR" \
+    -m ANIb \
+    --workers 32 \
+    --verbose \
+    --graphics \
+    --gformat svg \
+    --logfile "$OUTPUT_DIR/analysis.log"
+conda deactivate
+echo "pyani ANIb analysis completed"
